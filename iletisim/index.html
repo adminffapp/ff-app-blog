@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>İletişim - FF-App Labs</title>
+<meta name="description" content="Sorularınız, önerileriniz veya iş birliği talepleriniz için bize ulaşın.">
+<link rel="canonical" href="https://ffapplabs.com/iletisim">
+<style>
+  :root {
+    --bg: #0F0B08; --coffee: #1E160F; --coffee-line: #3A2C1E;
+    --beige: #E4D5B7; --sub: #9C8E77; --neon: #E8FF4D;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    background: var(--bg); color: var(--beige);
+    font-family: 'Inter', -apple-system, sans-serif; line-height: 1.5;
+    display: flex; flex-direction: column; min-height: 100vh;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ctext x='2' y='24' font-family='monospace' font-size='11' fill='%23234a6b' transform='rotate(-18 20 20)'%3E%26lt%3B/%26gt%3B%3C/text%3E%3C/svg%3E");
+    background-size: 40px 40px;
+  }
+  .navbar {
+    width: 100%; display: flex; align-items: center; justify-content: center;
+    padding: 16px 24px; border-bottom: 1px solid var(--coffee-line);
+    background: var(--bg); position: relative; z-index: 1;
+  }
+  .navbar img { height: 32px; }
+
+  .page-layout { flex: 1; width: 100%; max-width: 700px; margin: 0 auto; padding: 50px 16px; }
+  .wrap {
+    background: var(--coffee); border: 1px solid var(--coffee-line); border-radius: 18px;
+    padding: 32px 40px 40px;
+    transition: border-color .18s ease, box-shadow .18s ease;
+  }
+  .wrap:hover {
+    border-color: var(--neon);
+    box-shadow: 0 0 0 1px rgba(232,255,77,0.35), 0 0 34px 5px rgba(232,255,77,0.42);
+  }
+  .eyebrow { color: var(--sub); font-size: 11px; font-family: monospace; letter-spacing: 1.5px; margin-bottom: 10px; }
+  .subject-badge {
+    display: inline-block; font-size: 10px; font-family: monospace; color: var(--neon);
+    border: 1px solid var(--neon); border-radius: 20px; padding: 3px 10px; margin-bottom: 14px;
+  }
+  h1 { font-family: Georgia, serif; font-weight: 600; font-size: 28px; margin-bottom: 10px; }
+  .lead { color: var(--sub); font-size: 14px; margin-bottom: 24px; }
+
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-size: 10.5px; color: var(--sub); font-family: monospace; margin-bottom: 6px; }
+  .field input, .field textarea {
+    width: 100%; background: var(--bg); color: var(--beige); border: 1px solid var(--coffee-line);
+    border-radius: 8px; padding: 11px 13px; font-family: inherit; font-size: 13.5px;
+    outline: none; resize: vertical;
+    transition: border-color .18s ease, box-shadow .18s ease;
+  }
+  .field input:hover, .field input:focus, .field textarea:hover, .field textarea:focus {
+    border-color: var(--neon);
+    box-shadow: 0 0 0 1px rgba(232,255,77,0.3), 0 0 16px 2px rgba(232,255,77,0.3);
+  }
+  .field textarea { min-height: 120px; }
+
+  /* Bot tuzağı: gerçek kullanıcılar bu alanı hiç görmez */
+  .honeypot-field { position: absolute; left: -9999px; opacity: 0; height: 0; overflow: hidden; }
+
+  button.submit-btn {
+    background: transparent; border: 1px solid var(--coffee-line); color: var(--beige);
+    font-size: 13px; font-family: inherit; font-weight: 600;
+    padding: 11px 22px; border-radius: 8px; cursor: pointer; width: 100%;
+    transition: border-color .18s ease, box-shadow .18s ease;
+  }
+  button.submit-btn:hover { border-color: var(--neon); box-shadow: 0 0 20px 3px rgba(232,255,77,0.4); }
+  button.submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .status-msg { font-size: 12.5px; margin-top: 12px; text-align: center; min-height: 16px; }
+  .status-msg.success { color: #7ed99a; }
+  .status-msg.error { color: #e08f8f; }
+  .privacy-note { font-size: 11px; color: var(--sub); margin-top: 16px; text-align: center; line-height: 1.6; }
+  .privacy-note a { color: var(--neon); }
+
+</style>
+</head>
+<body>
+
+  <header class="navbar">
+    <a href="../"><img src="../assets/logo-strip.png" alt="FF-App Labs"></a>
+  </header>
+
+  <div class="page-layout">
+    <div class="wrap">
+      <div class="eyebrow">İLETİŞİM</div>
+      <div class="subject-badge" id="subjectBadge">Genel Mesaj</div>
+      <h1>Bize Ulaşın</h1>
+      <p class="lead">Sorularınız, önerileriniz veya iş birliği talepleriniz için formu doldurun.</p>
+
+      <form id="contactForm">
+        <div class="field">
+          <label>AD SOYAD</label>
+          <input type="text" id="nameInput" required>
+        </div>
+        <div class="field">
+          <label>E-POSTA</label>
+          <input type="email" id="emailInput" required>
+        </div>
+        <div class="field">
+          <label>MESAJ</label>
+          <textarea id="messageInput" required></textarea>
+        </div>
+
+        <!-- Bot tuzağı: gerçek kullanıcılar görmez/doldurmaz, botlar genelde doldurur -->
+        <div class="honeypot-field">
+          <label for="hfConfirmInput">Confirm</label>
+          <input type="text" id="hfConfirmInput" name="hf_confirm_9214" tabindex="-1" autocomplete="new-password">
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">Gönder</button>
+        <div class="status-msg" id="statusMsg"></div>
+      </form>
+      <div class="privacy-note">Gönderdiğiniz bilgiler (ad, e-posta, mesaj) yalnızca talebinize yanıt vermek amacıyla 1 yıl süreyle saklanır. Detaylar için <a href="../gizlilik-politikasi">Gizlilik Politikası</a>'nı inceleyebilirsiniz.</div>
+    </div>
+  </div>
+
+  <footer class="site-footer"></footer>
+
+<script src="../site-config.js"></script>
+<script src="../footer.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

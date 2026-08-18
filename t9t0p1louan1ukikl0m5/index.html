@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Yönetim Paneli</title>
+<style>
+  :root {
+    --bg: #0F0B08; --coffee: #1E160F; --coffee-line: #3A2C1E;
+    --beige: #E4D5B7; --sub: #9C8E77; --neon: #E8FF4D;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--beige);
+    font-family: 'Inter', -apple-system, sans-serif; line-height: 1.5;
+    min-height: 100vh; display: flex; flex-direction: column; align-items: center;
+    padding: 40px 20px;
+  }
+
+  /* ---- Giriş ekranı ---- */
+  #loginScreen {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    min-height: 70vh; text-align: center; gap: 18px;
+  }
+  #loginScreen h1 { font-family: Georgia, serif; font-size: 22px; }
+  #loginScreen p { color: var(--sub); font-size: 13px; max-width: 340px; }
+  .google-btn {
+    display: flex; align-items: center; gap: 10px; background: var(--coffee);
+    border: 1px solid var(--coffee-line); color: var(--beige); font-size: 14px; font-weight: 600;
+    padding: 12px 22px; border-radius: 10px; cursor: pointer; transition: border-color .18s ease;
+  }
+  .google-btn:hover { border-color: var(--neon); }
+  #accessDenied { display: none; color: #ff6b6b; font-size: 13px; margin-top: 10px; }
+
+  /* ---- Panel ---- */
+  #panel { display: none; width: 100%; max-width: 760px; }
+  .panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+  .panel-header h1 { font-family: Georgia, serif; font-size: 20px; }
+  .panel-header .user-email { color: var(--sub); font-size: 11px; }
+  .signout-btn { background: transparent; border: 1px solid var(--coffee-line); color: var(--sub); font-size: 11px; padding: 6px 12px; border-radius: 7px; cursor: pointer; }
+  .signout-btn:hover { border-color: var(--neon); color: var(--beige); }
+
+  .form-card {
+    background: var(--coffee); border: 1px solid var(--coffee-line); border-radius: 16px;
+    padding: 26px; margin-bottom: 30px;
+  }
+  .form-card h2 { font-family: Georgia, serif; font-size: 16px; margin-bottom: 18px; }
+  .field { margin-bottom: 14px; }
+  .field label { display: block; font-size: 11px; color: var(--sub); font-family: monospace; margin-bottom: 6px; letter-spacing: 0.5px; }
+  .field input[type="text"], .field input[type="url"], .field textarea {
+    width: 100%; background: var(--bg); border: 1px solid var(--coffee-line); color: var(--beige);
+    padding: 10px 12px; border-radius: 8px; font-family: inherit; font-size: 13px; outline: none;
+  }
+  .field input:focus, .field textarea:focus { border-color: var(--neon); }
+  .field textarea { resize: vertical; min-height: 70px; }
+  .field input[type="file"] { font-size: 12px; color: var(--sub); }
+  .img-preview { max-width: 200px; max-height: 120px; border-radius: 8px; margin-top: 10px; display: none; }
+  .checkbox-row { display: flex; align-items: center; gap: 8px; margin-bottom: 18px; }
+  .checkbox-row input { accent-color: var(--neon); width: 15px; height: 15px; }
+  .checkbox-row label { font-size: 12.5px; color: var(--sub); }
+
+  .submit-btn {
+    background: transparent; border: 1px solid var(--neon); color: var(--neon);
+    font-size: 13px; font-weight: 700; padding: 10px 22px; border-radius: 8px; cursor: pointer;
+  }
+  .submit-btn:hover { box-shadow: 0 0 16px 2px rgba(232,255,77,0.35); }
+  .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .posts-list h2 { font-family: Georgia, serif; font-size: 16px; margin-bottom: 16px; }
+  .post-item {
+    display: flex; gap: 14px; background: var(--coffee); border: 1px solid var(--coffee-line);
+    border-radius: 12px; padding: 14px; margin-bottom: 12px; align-items: center;
+  }
+  .post-item img { width: 70px; height: 46px; object-fit: cover; border-radius: 6px; flex-shrink: 0; }
+  .post-item .pi-text { flex: 1; min-width: 0; }
+  .post-item .pi-title { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+  .post-item .pi-status { font-size: 10px; font-family: monospace; }
+  .post-item .pi-status.published { color: var(--neon); }
+  .post-item .pi-status.draft { color: var(--sub); }
+  .post-item .pi-actions { display: flex; gap: 6px; flex-shrink: 0; }
+  .pi-actions button {
+    background: transparent; border: 1px solid var(--coffee-line); color: var(--sub);
+    font-size: 11px; padding: 6px 10px; border-radius: 6px; cursor: pointer;
+  }
+  .pi-actions button:hover { border-color: var(--neon); color: var(--beige); }
+  .pi-actions button.delete-btn:hover { border-color: #ff6b6b; color: #ff6b6b; }
+  .status-msg { font-size: 12px; margin-top: 10px; }
+  .status-msg.success { color: var(--neon); }
+  .status-msg.error { color: #ff6b6b; }
+  .empty-note { color: var(--sub); font-size: 12.5px; font-style: italic; }
+</style>
+</head>
+<body>
+
+  <div id="loginScreen">
+    <h1>Yönetim Paneli</h1>
+    <p>Bu sayfa sadece yetkili hesap tarafından görüntülenebilir.</p>
+    <button class="google-btn" id="googleSignInBtn">Google ile Giriş Yap</button>
+    <p id="accessDenied">✗ Bu hesabın erişim izni yok.</p>
+  </div>
+
+  <div id="panel">
+    <div class="panel-header">
+      <div>
+        <h1>Haberler & Duyurular</h1>
+        <div class="user-email" id="userEmailLabel"></div>
+      </div>
+      <button class="signout-btn" id="signOutBtn">Çıkış Yap</button>
+    </div>
+
+    <div class="form-card">
+      <h2>Yeni Duyuru Ekle</h2>
+      <form id="newsForm">
+        <div class="field">
+          <label>GÖRSEL</label>
+          <input type="file" id="imageInput" accept="image/*">
+          <img id="imgPreview" class="img-preview">
+        </div>
+        <div class="field">
+          <label>BAŞLIK (opsiyonel)</label>
+          <input type="text" id="titleInput">
+        </div>
+        <div class="field">
+          <label>METİN (opsiyonel)</label>
+          <textarea id="textInput"></textarea>
+        </div>
+        <div class="field">
+          <label>LİNK (opsiyonel)</label>
+          <input type="url" id="linkInput" placeholder="https://...">
+        </div>
+        <div class="checkbox-row">
+          <input type="checkbox" id="publishedInput" checked>
+          <label for="publishedInput">Hemen yayınla</label>
+        </div>
+        <button type="submit" class="submit-btn" id="submitBtn">Yayınla</button>
+        <div class="status-msg" id="formStatus"></div>
+      </form>
+    </div>
+
+    <div class="posts-list">
+      <h2>Mevcut Duyurular</h2>
+      <div id="postsContainer"><p class="empty-note">Yükleniyor...</p></div>
+    </div>
+  </div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import {
+    getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+  import {
+    getFirestore, collection, addDoc, doc, updateDoc, deleteDoc,
+    onSnapshot, query, orderBy, serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyB1_1SFf59n3dtsrwlQOAZ8v9O2Ip0lzgA",
+    authDomain: "site-biolink.firebaseapp.com",
+    projectId: "site-biolink",
+    storageBucket: "site-biolink.firebasestorage.app",
+    messagingSenderId: "989281542396",
+    appId: "1:989281542396:web:9ff4dea27a66949ee3f779"
+  };
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  const ADMIN_UID = "6ZLMshXVHQOsKVghntLGRHcLCsA2";
+
+  const loginScreen = document.getElementById("loginScreen");
+  const panel = document.getElementById("panel");
+  const accessDenied = document.getElementById("accessDenied");
+  const userEmailLabel = document.getElementById("userEmailLabel");
+
+  document.getElementById("googleSignInBtn").addEventListener("click", () => {
+    signInWithPopup(auth, new GoogleAuthProvider()).catch((err) => {
+      console.error("Giriş hatası:", err);
+    });
+  });
+  document.getElementById("signOutBtn").addEventListener("click", () => signOut(auth));
+
+  onAuthStateChanged(auth, (user) => {
+    if (user && user.uid === ADMIN_UID) {
+      loginScreen.style.display = "none";
+      panel.style.display = "block";
+      userEmailLabel.textContent = user.email;
+      listenToPosts();
+    } else if (user) {
+      // Giriş yapıldı ama yetkili hesap değil
+      accessDenied.style.display = "block";
+      signOut(auth);
+      panel.style.display = "none";
+      loginScreen.style.display = "flex";
+    } else {
+      panel.style.display = "none";
+      loginScreen.style.display = "flex";
+    }
+  });
+
+  // ---- Görsel önizleme + sıkıştırma (canvas ile) ----
+  let compressedImageBase64 = "";
+  const imgPreview = document.getElementById("imgPreview");
+
+  document.getElementById("imageInput").addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const maxW = 1200;
+        const scale = Math.min(1, maxW / img.width);
+        canvas.width = img.width * scale;
+        canvas.height = img.height * scale;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        compressedImageBase64 = canvas.toDataURL("image/jpeg", 0.75);
+        imgPreview.src = compressedImageBase64;
+        imgPreview.style.display = "block";
+      };
+      img.src = ev.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+
+  // ---- Form gönderimi ----
+  const form = document.getElementById("newsForm");
+  const submitBtn = document.getElementById("submitBtn");
+  const formStatus = document.getElementById("formStatus");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    formStatus.textContent = "";
+
+    try {
+      await addDoc(collection(db, "newsPosts"), {
+        image: compressedImageBase64 || "",
+        title: document.getElementById("titleInput").value.trim(),
+        text: document.getElementById("textInput").value.trim(),
+        link: document.getElementById("linkInput").value.trim(),
+        published: document.getElementById("publishedInput").checked,
+        createdAt: serverTimestamp()
+      });
+      formStatus.textContent = "✓ Yayınlandı.";
+      formStatus.className = "status-msg success";
+      form.reset();
+      imgPreview.style.display = "none";
+      compressedImageBase64 = "";
+    } catch (err) {
+      console.error(err);
+      formStatus.textContent = "✗ Bir hata oluştu: " + err.message;
+      formStatus.className = "status-msg error";
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+
+  // ---- Mevcut duyuruları listele ----
+  function listenToPosts() {
+    const q = query(collection(db, "newsPosts"), orderBy("createdAt", "desc"));
+    onSnapshot(q, (snapshot) => {
+      const container = document.getElementById("postsContainer");
+      if (snapshot.empty) {
+        container.innerHTML = '<p class="empty-note">Henüz duyuru eklenmedi.</p>';
+        return;
+      }
+      container.innerHTML = "";
+      snapshot.forEach((docSnap) => {
+        const data = docSnap.data();
+        const item = document.createElement("div");
+        item.className = "post-item";
+        item.innerHTML = `
+          ${data.image ? `<img src="${data.image}">` : ""}
+          <div class="pi-text">
+            <div class="pi-title">${data.title || "(başlıksız)"}</div>
+            <div class="pi-status ${data.published ? "published" : "draft"}">${data.published ? "YAYINDA" : "TASLAK"}</div>
+          </div>
+          <div class="pi-actions">
+            <button class="toggle-btn">${data.published ? "Yayından Kaldır" : "Yayınla"}</button>
+            <button class="delete-btn">Sil</button>
+          </div>
+        `;
+        item.querySelector(".toggle-btn").addEventListener("click", () =>
+          updateDoc(doc(db, "newsPosts", docSnap.id), { published: !data.published })
+        );
+        item.querySelector(".delete-btn").addEventListener("click", () => {
+          if (confirm("Bu duyuruyu silmek istediğinize emin misiniz?")) {
+            deleteDoc(doc(db, "newsPosts", docSnap.id));
+          }
+        });
+        container.appendChild(item);
+      });
+    });
+  }
+</script>
+</body>
+</html>
