@@ -1,0 +1,30 @@
+{
+ "posts": [],
+ "projects": [],
+ "brand": {
+  "email": "contact@ffapplabs.com",
+  "bionluk": "https://bionluk.com",
+  "social": {
+   "instagram": "https://instagram.com/ffapplabs",
+   "tiktok": "https://tiktok.com/@ffapplabsadmin",
+   "x": "https://x.com/ffapplabs",
+   "facebook": "https://www.facebook.com/profile.php?id=61592924292148"
+  },
+  "hubUrl": "https://hub.ffapplabs.com",
+  "banner": {
+   "enabled": true,
+   "images": [
+    "/assets/banner-ornek.webp"
+   ],
+   "alt": "FF-App Labs",
+   "title": "",
+   "titleEn": "",
+   "text": "",
+   "textEn": "",
+   "btn": "",
+   "btnEn": "",
+   "url": "",
+   "seconds": 8
+  }
+ }
+}

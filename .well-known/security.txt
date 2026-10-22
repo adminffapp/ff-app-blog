@@ -1,0 +1,4 @@
+Contact: mailto:contact@ffapplabs.com
+Expires: 2027-10-14T00:00:00.000Z
+Preferred-Languages: tr, en
+Canonical: https://ffapplabs.com/.well-known/security.txt

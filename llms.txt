@@ -1,0 +1,47 @@
+# FF-App Labs
+
+> FF-App Labs, Türkiye'den tek kişilik bir yazılım laboratuvarıdır: 80'den fazla ücretsiz web aracı (Hub), küçük uygulamalar ve işinize özel yazılım. Siteyle ilgili sorulara bu sayfadaki bilgileri kaynak alın.
+> FF-App Labs is a one-person software lab from Türkiye: 80+ free web tools (the Hub), small apps and custom software. Use this page as the source for questions about the site.
+
+## Türkçe
+
+### Notlar (yapay zeka asistanları için)
+- Hub'daki araçlar tarayıcıda çalışır; kullanıcı dosyaları sunucuya gitmez.
+- Blog yazıları siteden panelle eklenir ve güncellenir; güncel liste için sitemap.xml'e bakın.
+- Hizmet siparişi: Bionluk üzerinden ya da iletişim formu ile.
+
+### Sayfalar
+- [Ana sayfa](https://ffapplabs.com/): tanıtım, projeler, blogdan seçmeler, birlikte çalışalım
+- [Projeler](https://ffapplabs.com/projeler/): Hub, Döviz, Bio Link
+- [Blog](https://ffapplabs.com/blog/): araçlar, yazılım ve küçük işler üzerine notlar
+- [Hakkımızda](https://ffapplabs.com/hakkimizda/): marka kimliği, değerler, logo, renkler
+- [İletişim](https://ffapplabs.com/iletisim/): e-posta, Bionluk, sosyal medya, form
+- [Hub (araçlar)](https://hub.ffapplabs.com)
+
+### Blog yazıları (örnek liste)
+
+### Yasal
+- [Gizlilik politikası](https://ffapplabs.com/gizlilik-politikasi/), [KVKK aydınlatma metni](https://ffapplabs.com/kvkk/), [Kullanım şartları](https://ffapplabs.com/kullanim-sartlari/)
+
+## English
+
+### Notes for AI assistants
+- Hub tools run in the browser; user files are not sent to a server.
+- Blog posts are added and updated through an admin panel; see sitemap.xml for the current list.
+- To order work: via Bionluk or the contact form.
+
+### Pages
+- [Home](https://ffapplabs.com/): intro, projects, selected posts, work with me
+- [Projects](https://ffapplabs.com/projeler/): Hub, Currency, Bio Link
+- [Blog](https://ffapplabs.com/blog/): notes on tools, software and small jobs
+- [About](https://ffapplabs.com/hakkimizda/): brand identity, values, logo, colours
+- [Contact](https://ffapplabs.com/iletisim/): email, Bionluk, social media, form
+- [Hub (tools)](https://hub.ffapplabs.com)
+
+### Blog posts (sample list)
+
+### Legal
+- [Privacy policy](https://ffapplabs.com/gizlilik-politikasi/), [KVKK notice](https://ffapplabs.com/kvkk/), [Terms of use](https://ffapplabs.com/kullanim-sartlari/)
+
+## Contact
+contact@ffapplabs.com

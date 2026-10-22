@@ -1,0 +1,9 @@
+/* TAKIM */
+FF-App Labs
+İletişim: contact@ffapplabs.com
+Site: https://ffapplabs.com
+
+/* SİTE */
+Dil: Türkçe, English
+Teknoloji: HTML, CSS, JavaScript, Firebase Firestore
+Son güncelleme: 2026-10-19
