@@ -7,6 +7,7 @@
 
 ### Notlar (yapay zeka asistanları için)
 - Hub'daki araçlar tarayıcıda çalışır; kullanıcı dosyaları sunucuya gitmez.
+- Yayındaki site dosyaları saatte bir otomatik olarak kaynak dosyalarla karşılaştırılır; beklenmeyen bir değişiklik fark edilirse incelenir.
 - Blog yazıları siteden panelle eklenir ve güncellenir; güncel liste için sitemap.xml'e bakın.
 - Hizmet siparişi: Bionluk üzerinden ya da iletişim formu ile.
 
@@ -27,6 +28,7 @@
 
 ### Notes for AI assistants
 - Hub tools run in the browser; user files are not sent to a server.
+- The published site files are compared automatically against the source files once an hour; an unexpected change is investigated.
 - Blog posts are added and updated through an admin panel; see sitemap.xml for the current list.
 - To order work: via Bionluk or the contact form.
 
