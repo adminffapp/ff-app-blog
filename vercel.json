@@ -7,6 +7,10 @@
    "destination": "/api/blog?slug=:slug"
   },
   {
+   "source": "/blog/:slug/",
+   "destination": "/api/blog?slug=:slug"
+  },
+  {
    "source": "/sitemap-blog.xml",
    "destination": "/api/sitemap"
   }
