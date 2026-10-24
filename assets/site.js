@@ -29,7 +29,6 @@
     ["move", "down", "up"].forEach(function (k) { addEventListener("pointer" + k, function (e) { fwd(e, "pointer" + k, true); fwd(e, "mouse" + k, false); }); });
   }
   function loadRive() {
-    if (!document.getElementById("riveBgCanvas")) return;
     var s = document.createElement("script"); s.src = "https://unpkg.com/@rive-app/canvas@2.19.5/rive.js"; s.async = true; s.onload = startRive; document.head.appendChild(s);
   }
   if (document.readyState === "complete") setTimeout(loadRive, 200); else addEventListener("load", function () { setTimeout(loadRive, 200); });
@@ -58,5 +57,3 @@
   }
   if (ban && bg && window.FFB) { drawBanner(); document.addEventListener("ffb:lang", drawBanner); }
 })();
-
-(function(){function f(){var a=document.querySelector(".subnav a[aria-current=page]"),n=a&&a.parentNode;if(n&&n.scrollWidth>n.clientWidth)n.scrollLeft=a.offsetLeft-(n.clientWidth-a.offsetWidth)/2;}if(document.readyState==="complete")f();else addEventListener("load",f);})();

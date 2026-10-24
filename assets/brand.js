@@ -15,7 +15,7 @@
 
   // ---------------- dil ----------------
   var DICT = { tr: {}, en: {} };
-  function lang() { try { var l = localStorage.getItem("lang"); if (l === "en" || l === "tr") return l; } catch (e) {} return (navigator.language || "").toLowerCase().indexOf("tr") === 0 ? "tr" : "en"; }
+  function lang() { try { var l = localStorage.getItem("lang"); if (l === "en" || l === "tr") return l; } catch (e) {} return (navigator.language || "").toLowerCase().indexOf("tr") === 0 ? "tr" : "tr"; }
   function t(k) { var d = DICT[lang()] || DICT.tr; return d[k] != null ? d[k] : (DICT.tr[k] != null ? DICT.tr[k] : k); }
   function extend(add) { ["tr", "en"].forEach(function (l) { if (add[l]) for (var k in add[l]) DICT[l][k] = add[l][k]; }); }
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
@@ -27,34 +27,8 @@
     root.querySelectorAll("[data-i18n-label]").forEach(function (el) { el.setAttribute("aria-label", t(el.getAttribute("data-i18n-label"))); });
     var m = DICT[L] && DICT[L].pageTitle; if (m) document.title = m;
     var md = DICT[L] && DICT[L].metaDesc; if (md) { var x = document.querySelector('meta[name="description"]'); if (x) x.setAttribute("content", md); }
-    var lb = document.getElementById("langBtn"); if (lb) { lb.textContent = L === "tr" ? "EN" : "TR"; lb.setAttribute("aria-label", L === "tr" ? "Switch to English" : "Türkçe'ye geç"); }
-    syncLangUI(L);
+    var lb = document.getElementById("langBtn"); if (lb) lb.textContent = L === "tr" ? "EN" : "TR";
     if (BRAND) wireBrand(root);
-  }
-  // ---- bayraklı dil seçici (web app ile aynı) ----
-  var LSEL = { tr: { title: "Dilinizi seçin", btn: "Dil seçin", close: "Kapat" }, en: { title: "Choose your language", btn: "Choose language", close: "Close" } };
-  function syncLangUI(L) {
-    var T = LSEL[L] || LSEL.tr, g = function (i) { return document.getElementById(i); };
-    ["Tr", "En"].forEach(function (k) {
-      var f = g("navbarFlag" + k), r = g("navbarLangRow" + k);
-      if (f) { if (k.toLowerCase() === L) f.removeAttribute("hidden"); else f.setAttribute("hidden", ""); }
-      if (r) { if (k.toLowerCase() === L) r.setAttribute("aria-current", "true"); else r.removeAttribute("aria-current"); }
-    });
-    if (g("navbarLangCode")) g("navbarLangCode").textContent = L.toUpperCase();
-    if (g("navbarLangTitle")) g("navbarLangTitle").textContent = T.title;
-    if (g("navbarLangClose")) g("navbarLangClose").setAttribute("aria-label", T.close);
-    if (g("navbarLangBtn")) g("navbarLangBtn").setAttribute("aria-label", T.btn);
-  }
-  function wireLangSel() {
-    var sel = document.getElementById("navbarLangSel"), btn = document.getElementById("navbarLangBtn"), cl = document.getElementById("navbarLangClose");
-    if (!sel || !btn) return;
-    function setOpen(o) { sel.classList.toggle("is-open", o); btn.setAttribute("aria-expanded", String(o)); }
-    btn.addEventListener("click", function (e) { e.stopPropagation(); setOpen(!sel.classList.contains("is-open")); });
-    document.addEventListener("click", function (e) { if (!sel.contains(e.target)) setOpen(false); });
-    if (cl) cl.addEventListener("click", function (e) { e.stopPropagation(); setOpen(false); btn.focus(); });
-    sel.addEventListener("keydown", function (e) { if (e.key === "Escape" && sel.classList.contains("is-open")) { e.stopPropagation(); setOpen(false); btn.focus(); } });
-    sel.querySelectorAll(".navbar-langsel-row").forEach(function (row) { row.addEventListener("click", function (e) { e.stopPropagation(); setOpen(false); btn.focus(); setLang(row.getAttribute("data-lang")); }); });
-    syncLangUI(lang());
   }
   function setLang(l) { try { localStorage.setItem("lang", l); } catch (e) {} applyI18n(); document.dispatchEvent(new CustomEvent("ffb:lang")); }
   function pick(o, f) { return lang() === "en" && o[f + "En"] ? o[f + "En"] : o[f]; }
@@ -154,21 +128,21 @@
 
   // ---------------- ortak metinler ----------------
   extend({
-    tr: { navHome: "Ana Sayfa", navProjects: "Projeler", navBlog: "Blog", navAbout: "Hakkımızda", navContact: "İletişim", copyL: "E-postayı kopyala", copied: "E-posta kopyalandı", copyFail: "Kopyalanamadı", fdPages: "Sitedeki sayfalar.", fdLegal: "Gizlilik ve kullanım metinleri.", fdSocial: "Güncel gelişmeleri buradan takip edin.", fdContact: "Soru ve önerileriniz için bize ulaşın.", fBionluk: "Bionluk sayfamız", menu: "Menü", close: "Kapat",
+    tr: { navHome: "Ana Sayfa", navProjects: "Projeler", navBlog: "Blog", navAbout: "Hakkımızda", navContact: "İletişim", fdPages: "Sitedeki sayfalar.", fdLegal: "Gizlilik ve kullanım metinleri.", fdSocial: "Güncel gelişmeleri buradan takip edin.", fdContact: "Soru ve önerileriniz için bize ulaşın.", fBionluk: "Bionluk sayfam", menu: "Menü", close: "Kapat",
       fPages: "Sayfalar", fLegal: "Yasal", fSocial: "Sosyal medya", fContact: "İletişim", fPrivacy: "Gizlilik politikası", fKvkk: "KVKK aydınlatma metni", fTerms: "Kullanım şartları", fHub: "Araçlar (Hub)", fWork: "Birlikte çalışalım",
       legalLine: "© {y} FF-App Labs. Tüm hakları saklıdır.", skip: "Ana içeriğe geç",
       fName: "Adınız", fEmail: "E-posta adresiniz", fType: "Ne yapmak istiyorsunuz?", fMsg: "Kısaca anlatın", fSend: "Gönder", fSending: "Gönderiliyor…",
       tWeb: "Web sitesi", tTool: "Web aracı / hesaplayıcı", tApp: "Uygulama", tOther: "Başka bir şey",
       fConsent: "<a href=\"/kvkk/\">KVKK aydınlatma metnini</a> okudum; mesajım yanıt vermek için saklanır.",
-      fOk: "Mesajınız alındı. En kısa sürede e-postanıza dönüş yapacağız.", fFail: "Gönderilemedi. Birazdan yeniden deneyin ya da e-posta yazın.", fWait: "Çok hızlı gönderiyorsunuz, biraz bekleyin.", fBadMail: "Geçerli bir e-posta adresi yazın.", fShort: "Mesaj en az 3 karakter olmalı.", fNeedName: "Adınızı yazın.", fNeedConsent: "Devam etmek için onay kutusunu işaretleyin.",
+      fOk: "Mesajınız alındı. En kısa sürede e-postanıza dönüş yapacağım.", fFail: "Gönderilemedi. Birazdan yeniden deneyin ya da e-posta yazın.", fWait: "Çok hızlı gönderiyorsunuz, biraz bekleyin.", fBadMail: "Geçerli bir e-posta adresi yazın.", fShort: "Mesaj en az 3 karakter olmalı.", fNeedName: "Adınızı yazın.", fNeedConsent: "Devam etmek için onay kutusunu işaretleyin.",
       reads: "okunma", min: "dk okuma", notFound: "Sayfa bulunamadı.", back: "Ana sayfa" },
-    en: { navHome: "Home", navProjects: "Projects", navBlog: "Blog", navAbout: "About", navContact: "Contact", copyL: "Copy email", copied: "Email copied", copyFail: "Could not copy", fdPages: "Pages on this site.", fdLegal: "Privacy and usage texts.", fdSocial: "Follow the latest updates here.", fdContact: "Reach us with questions and ideas.", fBionluk: "Our Bionluk page", menu: "Menu", close: "Close",
+    en: { navHome: "Home", navProjects: "Projects", navBlog: "Blog", navAbout: "About", navContact: "Contact", fdPages: "Pages on this site.", fdLegal: "Privacy and usage texts.", fdSocial: "Follow the latest updates here.", fdContact: "Reach us with questions and ideas.", fBionluk: "My Bionluk page", menu: "Menu", close: "Close",
       fPages: "Pages", fLegal: "Legal", fSocial: "Social", fContact: "Contact", fPrivacy: "Privacy policy", fKvkk: "KVKK notice", fTerms: "Terms of use", fHub: "Tools (Hub)", fWork: "Work with me",
       legalLine: "© {y} FF-App Labs. All rights reserved.", skip: "Skip to content",
       fName: "Your name", fEmail: "Your email", fType: "What would you like to build?", fMsg: "Tell me briefly", fSend: "Send", fSending: "Sending…",
       tWeb: "Website", tTool: "Web tool / calculator", tApp: "App", tOther: "Something else",
       fConsent: "I have read the <a href=\"/kvkk/\">KVKK notice</a>; my message is stored so I can be answered.",
-      fOk: "Message received. We will reply to your email soon.", fFail: "Could not send. Try again shortly or email directly.", fWait: "You are sending too fast. Please wait a moment.", fBadMail: "Enter a valid email address.", fShort: "Message must be at least 3 characters.", fNeedName: "Enter your name.", fNeedConsent: "Tick the box to continue.",
+      fOk: "Message received. I will reply to your email soon.", fFail: "Could not send. Try again shortly or email directly.", fWait: "You are sending too fast. Please wait a moment.", fBadMail: "Enter a valid email address.", fShort: "Message must be at least 3 characters.", fNeedName: "Enter your name.", fNeedConsent: "Tick the box to continue.",
       reads: "reads", min: "min read", notFound: "Page not found.", back: "Home" }
   });
 
@@ -181,21 +155,12 @@
       bar.querySelectorAll("nav a").forEach(function (a) { a.addEventListener("click", function () { bar.classList.remove("open"); document.body.style.overflow = ""; if (mb) { mb.textContent = t("menu"); mb.setAttribute("aria-expanded", "false"); } }); });
     }
     var lb = document.getElementById("langBtn"); if (lb) lb.addEventListener("click", function () { setLang(lang() === "tr" ? "en" : "tr"); });
-    wireLangSel();
     var cur = location.pathname.replace(/\/index\.html$/, "/");
     document.querySelectorAll(".subnav a[href]").forEach(function (a) { var h = a.getAttribute("href"); if (h !== "/" && cur.indexOf(h) === 0) a.setAttribute("aria-current", "page"); });
     var y = document.querySelector("[data-year]"); if (y) { y.textContent = t("legalLine").replace("{y}", new Date().getFullYear()); document.addEventListener("ffb:lang", function () { y.textContent = t("legalLine").replace("{y}", new Date().getFullYear()); }); }
     getBrand().then(function (b) { BRAND = b; wireBrand(document); });
     var cp = document.getElementById("copyMail");
-    if (cp) {
-      var live = document.createElement("span"); live.setAttribute("aria-live", "polite"); live.setAttribute("role", "status"); live.style.cssText = "position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap"; cp.parentNode.appendChild(live);
-      cp.addEventListener("click", function () {
-        var m = (BRAND && BRAND.email) || "contact@ffapplabs.com";
-        function done(okk) { live.textContent = ""; setTimeout(function () { live.textContent = t(okk ? "copied" : "copyFail"); }, 30); if (okk) { cp.textContent = "\u2713"; setTimeout(function () { cp.textContent = "\u29c9"; }, 1600); } }
-        function legacy() { try { var ta = document.createElement("textarea"); ta.value = m; ta.setAttribute("readonly", ""); ta.style.cssText = "position:fixed;opacity:0"; document.body.appendChild(ta); ta.select(); var r = document.execCommand("copy"); ta.remove(); done(r); } catch (e) { done(false); } }
-        if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(m).then(function () { done(true); }, legacy); else legacy();
-      });
-    }
+    if (cp) cp.addEventListener("click", function () { var m = (BRAND && BRAND.email) || "contact@ffapplabs.com"; function ok() { cp.textContent = "\u2713"; setTimeout(function () { cp.textContent = "\u29c9"; }, 1600); } if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(m).then(ok, function () {}); });
     document.querySelectorAll(".sc-link[data-user]").forEach(function (a) {
       var n = a.querySelector(".nm"); if (!n) return; var orig = n.textContent, tm;
       a.addEventListener("mouseenter", function () { n.classList.add("swap"); clearTimeout(tm); tm = setTimeout(function () { n.textContent = a.getAttribute("data-user"); n.classList.add("user"); n.classList.remove("swap"); }, 150); });
@@ -204,9 +169,9 @@
     // e-posta uygulaması açılmazsa forma yönlendir
     document.addEventListener("click", function (e) {
       var a = e.target.closest && e.target.closest("a[data-mail-fallback]"); if (!a) return; e.preventDefault();
-      var hid = false, f = function () { hid = true; }; document.addEventListener("visibilitychange", f); window.addEventListener("blur", f);
+      var hid = false, f = function () { if (document.hidden) hid = true; }; document.addEventListener("visibilitychange", f);
       location.href = a.getAttribute("href");
-      setTimeout(function () { document.removeEventListener("visibilitychange", f); window.removeEventListener("blur", f); if (!hid) location.href = "/iletisim/?konu=" + (a.getAttribute("data-mail-fallback") || "is"); }, 1500);
+      setTimeout(function () { document.removeEventListener("visibilitychange", f); if (!hid) location.href = "/iletisim/?konu=" + (a.getAttribute("data-mail-fallback") || "is"); }, 700);
     });
   }
   var BRAND = null;
@@ -228,24 +193,18 @@
   }
 
   // ---------------- iletişim formu (contactMessages) ----------------
-  // iletişim formu mesajını Firestore'a yazar (mountForm ile aynı kayıt biçimi)
-  function sendMessage(name, mail, text, tag) {
-    return fetch(BASE + "/contactMessages" + key(), { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ fields: { name: { stringValue: String(name).slice(0, 80) }, email: { stringValue: mail }, message: { stringValue: ("[Marka sitesi" + (tag ? " \u00b7 " + tag : "") + "] " + text).slice(0, 1000) }, date: { timestampValue: new Date().toISOString() }, lang: { stringValue: lang() }, status: { stringValue: "new" } } }) })
-      .then(function (r) { if (!r.ok) throw new Error("http " + r.status); });
-  }
   function mountForm(form) {
     var box = form.querySelector(".status"), btn = form.querySelector("button[type=submit]");
-    function say(kind, k, fld) { box.className = "status " + kind; box.textContent = t(k); box.hidden = false; if (fld) { fld.setAttribute("aria-invalid", "true"); fld.focus(); } }
-    var TOP = { web: 0, arac: 1, uygulama: 2, diger: 3 }; try { var kq = new URLSearchParams(location.search).get("konu"); if (kq && form.elements.type && TOP[kq] != null) form.elements.type.selectedIndex = TOP[kq]; } catch (x) {}
+    function say(kind, k) { box.className = "status " + kind; box.textContent = t(k); box.hidden = false; }
     form.addEventListener("submit", function (e) {
       e.preventDefault(); box.hidden = true;
-      var f = form.elements; Array.prototype.forEach.call(form.querySelectorAll("[aria-invalid]"), function (n) { n.removeAttribute("aria-invalid"); });
+      var f = form.elements;
       if (f.website && f.website.value) return; // tuzak alan: botlar doldurur
       var name = f.name.value.trim(), mail = f.email.value.trim(), msg = f.message.value.trim(), typ = f.type ? f.type.options[f.type.selectedIndex].text : "";
-      if (!name) return say("bad", "fNeedName", f.name);
-      if (!/^.+@.+\..+$/.test(mail) || mail.length > 120) return say("bad", "fBadMail", f.email);
-      if (msg.length < 3) return say("bad", "fShort", f.message);
-      if (f.consent && !f.consent.checked) return say("bad", "fNeedConsent", f.consent);
+      if (!name) return say("bad", "fNeedName");
+      if (!/^.+@.+\..+$/.test(mail) || mail.length > 120) return say("bad", "fBadMail");
+      if (msg.length < 3) return say("bad", "fShort");
+      if (f.consent && !f.consent.checked) return say("bad", "fNeedConsent");
       try { var last = Number(localStorage.getItem("ffb_last") || 0); if (Date.now() - last < 30000) return say("bad", "fWait"); } catch (x) {}
       var text = ("[Marka sitesi" + (typ ? " · " + typ : "") + "] " + msg).slice(0, 1000);
       btn.disabled = true; btn.textContent = t("fSending");
@@ -258,6 +217,6 @@
   }
 
   window.FFB = { PROJECT: PROJECT, extend: extend, t: t, lang: lang, setLang: setLang, applyI18n: applyI18n, esc: esc, pick: pick, fmtDate: fmtDate, nf: nf, md: md,
-    getBrand: getBrand, getProjects: getProjects, getPosts: getPosts, getPost: getPost, getViews: getViews, getBanner: getBanner, popular: popular, hit: hit, hubUsage: hubUsage, reveal: reveal, mountForm: mountForm, sendMessage: sendMessage, HUB: HUB };
+    getBrand: getBrand, getProjects: getProjects, getPosts: getPosts, getPost: getPost, getViews: getViews, getBanner: getBanner, popular: popular, hit: hit, hubUsage: hubUsage, reveal: reveal, mountForm: mountForm, HUB: HUB };
   document.addEventListener("DOMContentLoaded", function () { wireChrome(); });
 })();

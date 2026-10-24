@@ -8,7 +8,7 @@ function render(){FFB.getProjects().then(function(l){var r=document.getElementBy
   return '<article class="prj'+(o?' open':'')+(wide?'':' nowide')+'" data-k="'+E(p.id||i)+'">'
    +'<div class="p-thumb">'+sq(p)+'</div>'
    +(wide?'<div class="p-wide"><img src="'+E(wide)+'" alt="" loading="lazy"></div>':'')
-   +'<div class="p-main"><h2>'+E(FFB.pick(p,"name"))+'</h2><p class="p-short">'+E(d)+'</p><p class="p-long">'+E(dt)+'</p></div>'
+   +'<div class="p-main"><h2>'+E(FFB.pick(p,"name"))+'</h2><p class="p-short">'+E(d)+'</p><div class="p-long prose" style="white-space:normal">'+FFB.md(dt)+'</div></div>'
    +'<div class="p-state"><span class="badge'+(live?' live':'')+'">'+E(FFB.t(live?"stLive":"stDev"))+'</span>'+(b?'<span class="small">'+E(b)+'</span>':'')+'</div>'
    +'<div class="p-act">'+((live&&p.url)?'<a class="btn pri" href="'+E(p.url)+'" target="_blank" rel="noopener">'+E(FFB.t("prVisit"))+' →</a>':'')+'<button class="p-tg" type="button" aria-expanded="'+o+'" aria-label="'+E(FFB.t(o?"prLess":"prMore"))+'" title="'+E(FFB.t(o?"prLess":"prMore"))+'"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>'
    +'</article>';}).join("");FFB.reveal(r);});}
