@@ -23,7 +23,7 @@ module.exports = async (req, res) => {
     return res.end(html);
   }
   const url = `${DOMAIN}/blog/${slug}/`, title = `${p.title} | FF-App Labs`, desc = String(p.excerpt || "").slice(0, 300);
-  const img = p.cover && /^https:/.test(p.cover) ? p.cover : DOMAIN + "/assets/og.png";
+  const img = p.cover && /^https:/.test(p.cover) ? p.cover : p.cover && /^\/[^/]/.test(p.cover) ? DOMAIN + p.cover : DOMAIN + "/assets/og.png";
   html = html
     .replace(/<title>[^<]*<\/title>/, `<title>${esc(title)}</title>`)
     .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${esc(desc)}">`)

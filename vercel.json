@@ -17,7 +17,10 @@
  ],
  "functions": {
   "api/blog.js": {
-   "includeFiles": "blog/index.html"
+   "includeFiles": "{blog/index.html,veri/icerik.json}"
+  },
+  "api/sitemap.js": {
+   "includeFiles": "veri/icerik.json"
   }
  },
  "headers": [

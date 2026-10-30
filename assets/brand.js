@@ -85,28 +85,38 @@
   function rawBrand() { if (!brandP) brandP = http(BASE + "/siteData/brand" + key()).then(function (d) { var f = d.fields && d.fields.data; return f && f.stringValue ? JSON.parse(f.stringValue) : {}; }).catch(function (e) { return e && /404/.test(e.message) ? null : undefined; }); return brandP; }
   function getBrand() { return rawBrand().then(function (b) { var o = JSON.parse(JSON.stringify(DEFAULT_BRAND)); if (b) { for (var k in b) { if (k === "social" && b.social) for (var s in b.social) o.social[s] = b.social[s]; else if (b[k]) o[k] = b[k]; } } return o; }); }
 
+  // Yazılar ve projeler önce sitenin kendi veri dosyasından okunur (panel bu dosyayı yazıp git ile yayınlar).
+  // Dosya yoksa ya da okunamazsa eski yöntemle Firestore'dan okunur.
+  var fileP = null;
+  function fileData() { if (!fileP) fileP = http("/veri/icerik.json", { cache: "no-cache" }).then(function (d) { return d && Array.isArray(d.posts) && Array.isArray(d.projects) ? d : null; }).catch(function () { return null; }); return fileP; }
   var projP = null, postP = null;
   function getProjects() {
     if (projP) return projP;
-    projP = Promise.all([rawBrand(), http(BASE + "/projects" + key() + "&pageSize=60").then(function (r) { return (r.documents || []).map(decDoc); }).catch(function () { return undefined; })]).then(function (x) {
+    projP = fileData().then(function (d) { return d ? d.projects.filter(function (p) { return p.active !== false; }).sort(function (a, b) { return (a.order || 0) - (b.order || 0); }) : fsProjects(); });
+    return projP;
+  }
+  function fsProjects() {
+    return Promise.all([rawBrand(), http(BASE + "/projects" + key() + "&pageSize=60").then(function (r) { return (r.documents || []).map(decDoc); }).catch(function () { return undefined; })]).then(function (x) {
       var brand = x[0], list = x[1];
       if (list === undefined || (!list.length && brand === null)) return sample().then(function (s) { return s.projects || []; });
       return list.filter(function (p) { return p.active !== false; }).sort(function (a, b) { return (a.order || 0) - (b.order || 0); });
     });
-    return projP;
   }
   function getPosts() {
     if (postP) return postP;
-    var q = { structuredQuery: { from: [{ collectionId: "posts" }], where: { fieldFilter: { field: { fieldPath: "published" }, op: "EQUAL", value: { booleanValue: true } } }, limit: 100 } };
-    postP = Promise.all([rawBrand(), http(BASE + ":runQuery" + key(), { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(q) }).then(function (r) { return r.filter(function (x) { return x.document; }).map(function (x) { return decDoc(x.document); }); }).catch(function () { return undefined; })]).then(function (x) {
-      var brand = x[0], list = x[1];
-      if (list === undefined || (!list.length && brand === null)) return sample().then(function (s) { return (s.posts || []).slice(); });
-      return list;
-    }).then(function (list) {
+    postP = fileData().then(function (d) { return d ? d.posts.filter(function (p) { return p.published !== false; }) : fsPosts(); }).then(function (list) {
       var now = Date.now();
       return list.filter(function (p) { return !p.publishedAt || Date.parse(p.publishedAt) <= now + 86400000; }).sort(function (a, b) { return Date.parse(b.publishedAt || 0) - Date.parse(a.publishedAt || 0); });
     });
     return postP;
+  }
+  function fsPosts() {
+    var q = { structuredQuery: { from: [{ collectionId: "posts" }], where: { fieldFilter: { field: { fieldPath: "published" }, op: "EQUAL", value: { booleanValue: true } } }, limit: 100 } };
+    return Promise.all([rawBrand(), http(BASE + ":runQuery" + key(), { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(q) }).then(function (r) { return r.filter(function (x) { return x.document; }).map(function (x) { return decDoc(x.document); }); }).catch(function () { return undefined; })]).then(function (x) {
+      var brand = x[0], list = x[1];
+      if (list === undefined || (!list.length && brand === null)) return sample().then(function (s) { return (s.posts || []).slice(); });
+      return list;
+    });
   }
   function getPost(slug) { return getPosts().then(function (l) { return l.filter(function (p) { return (p.slug || p.id) === slug; })[0] || null; }); }
   var viewsP = null;
