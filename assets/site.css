@@ -692,3 +692,11 @@ input[aria-invalid="true"],select[aria-invalid="true"],textarea[aria-invalid="tr
 .langsel-close{border-radius:50%!important;background:rgba(228,213,183,.09)!important}
 
 @media (max-width:640px){.subnav{justify-content:flex-start;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;gap:0}.subnav::-webkit-scrollbar{display:none}.subnav a{flex:0 0 auto;padding:7px 10px;font-size:12.5px}.subnav a:first-child{margin-left:auto}.subnav a:last-child{margin-right:auto}}
+
+/* Mobil: üst menü tek satırda sığar (kesilmez); arka plan animasyonu kahve tonlarında */
+#riveBgCanvas{filter:sepia(1) saturate(.85) brightness(1.15);-webkit-mask-image:linear-gradient(180deg,transparent 0,transparent 124px,#000 220px);mask-image:linear-gradient(180deg,transparent 0,transparent 124px,#000 220px)}
+@media (max-width:640px){
+ .subnav{justify-content:space-between;overflow:visible;padding:26px 6px 8px;gap:0}
+ .subnav a{flex:0 1 auto;margin:0!important;padding:7px clamp(4px,1.9vw,9px);font-size:clamp(10.5px,3.15vw,12.5px)}
+}
+@media (max-width:340px){.subnav{padding:26px 4px 8px}.subnav a{padding:7px 3px;font-size:10px}}
