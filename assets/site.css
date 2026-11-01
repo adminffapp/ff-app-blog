@@ -739,3 +739,7 @@ input[aria-invalid="true"],select[aria-invalid="true"],textarea[aria-invalid="tr
 .son-kutu .son-liste li:last-child a{border-bottom:0}
 @media (max-width:820px){.prjhome.tersgrid{grid-template-columns:1fr}.prjhome.tersgrid .tx{order:-1;padding-left:0}}
 .s-hiz .prjhome h2,.s-son .prjhome h2{color:var(--neon);font-size:clamp(26px,2.8vw,36px)}
+
+/* sıra: hizmetler → projeler → son yazılar → birlikte çalışalım; zeminler kesintisiz (v35) */
+.s-hiz+.s-prj{background:#15100b;padding:20px 0 70px}
+.s-prj+.s-son{background:#15100b;padding:20px 0 70px}
