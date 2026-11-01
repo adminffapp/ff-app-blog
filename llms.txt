@@ -17,6 +17,9 @@
 - [Blog](https://ffapplabs.com/blog/): araçlar, yazılım ve küçük işler üzerine notlar
 - [Hakkımızda](https://ffapplabs.com/hakkimizda/): marka kimliği, değerler, logo, renkler
 - [İletişim](https://ffapplabs.com/iletisim/): e-posta, Bionluk, sosyal medya, form
+- [Özel yazılım geliştirme](https://ffapplabs.com/ozel-yazilim-gelistirme/): Excel ve elle yürüyen işleri size özel uygulamaya dönüştürme
+- [Web sitesi yapımı](https://ffapplabs.com/web-sitesi-yapimi/): hızlı, sade, arama motorlarına uygun kurumsal siteler
+- [Mobil uygulama geliştirme](https://ffapplabs.com/mobil-uygulama-gelistirme/): küçük başlayıp büyüyen mobil ve web uygulamaları
 - [Hub (araçlar)](https://hub.ffapplabs.com)
 
 ### Blog yazıları (örnek liste)
