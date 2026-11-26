@@ -1,75 +1,62 @@
 (function(){
-var D={tr:{
-ct_heading:"Bize yazın",ct_intro:"Görüş, öneri, hata bildirimi ya da iş birliği — formu doldurun, size dönelim.",ct_cardTitle:"Bize ulaşın",
-ct_kEmail:"E-posta",ct_kPhone:"Telefon",ct_soon:"Yakında",ct_lName:"Ad Soyad",ct_lEmail:"E-posta",ct_lMsg:"Mesajınız",
-ct_phName:"Adınız ve soyadınız",ct_phEmail:"ornek@eposta.com",ct_phMsg:"Nasıl yardımcı olabiliriz?",
+var D={tr:{ct_back:"← Ana sayfaya dön",ct_pill:"Bir merhabayla başlar.",ct_h:"İyi fikirler, <em>birlikte büyür.</em>",
+ct_lead:"Aklınızda bir fikir, işinizi yavaşlatan bir süreç ya da sadece bir soru mu var? Anlatın, nereden başlayacağımızı birlikte bulalım.",
+ct_note:"Teknik bir dokümana ihtiyacınız yok. <b>“Şu işi daha kolay yapabilir miyim?”</b> demeniz yeterli.",
+ct_kMail:"Doğrudan yazmak isterseniz",ct_copy:"E-postayı kopyala",ct_copied:"Kopyalandı",ct_bnT:"Bionluk üzerinden başlayın",ct_bnS:"Ödemenin ve teslimin güvence altında olmasını isteyenler için.",
+ct_direct:"Arada katmanlar yok.<br>Doğrudan geliştiriciyle iletişim.",ct_fH:"Biraz projenizden bahsedelim.",ct_fSub:"Küçük bir başlangıç için birkaç satır yeter.",
+ct_topic:"Ne üzerine konuşalım?",ct_t1:"Özel yazılım",ct_t2:"Web sitesi",ct_t3:"Mobil uygulama",ct_t4:"Bir fikrim var",
+ct_lName:"Adınız",ct_lEmail:"E-posta adresiniz",ct_lMsg:"Aklınızdakini anlatın",ct_phName:"Size nasıl hitap edelim?",ct_phEmail:"siz@ornek.com",ct_phMsg:"Ne yapmak istiyorsunuz? Şu anda sizi en çok zorlayan şey ne?",
+ct_hint:"En az 10 karakter. Detayları sonra konuşuruz.",
 ct_consent:'<a href="/kvkk/" target="_blank" rel="noopener">KVKK Aydınlatma Metni</a>\'ni okudum; bilgilerimin yanıt verilmesi amacıyla işlenmesini kabul ediyorum.',
-ct_send:"Gönder",ct_sending:"Gönderiliyor…",ct_back:"Ana sayfa",ct_relTitle:"İlgili sayfalar",ct_relPrivacy:"Gizlilik Politikası",ct_relKvkk:"KVKK Aydınlatma Metni",ct_relTerms:"Kullanım Şartları",
-ct_errName:"Lütfen adınızı yazın.",ct_errEmail:"Geçerli bir e-posta adresi yazın.",ct_errMsg:"Mesajınız en az 10 karakter olmalı.",ct_errOk:"Devam etmek için onay vermelisiniz.",
-ct_failMsg:"Gönderilemedi. Lütfen biraz sonra tekrar deneyin veya e-posta ile yazın.",ct_wait:"Çok hızlı gönderiyorsunuz, biraz bekleyin.",
-ct_ownerTitle:"Alıcı",ct_senderTitle:"Gönderen",ct_greet:"Merhaba! Formu doldurun, mesajınızı doğrudan bize iletelim.",ct_flySending:"Mesajınız gönderiliyor…",
-ct_flyDone:"Mesajınız FF-App Labs’a ulaştı. En kısa sürede dönüş yapacağız.",ct_flyClose:"Tamam",ct_pvName:"Adınız Soyadınız",ct_pvMail:"e-posta adresiniz",ct_pvMsg:"Mesajınız burada görünecek.",ct_pvTime:"Gönderim",
-ct_role:"FF-App Labs ekibi",ct_reply:"Genelde 1–2 gün içinde yanıt"},
-en:{
-ct_heading:"Write to us",ct_intro:"Feedback, suggestions, bug reports or partnerships — fill in the form and we’ll get back to you.",ct_cardTitle:"Get in touch",
-ct_kEmail:"Email",ct_kPhone:"Phone",ct_soon:"Coming soon",ct_lName:"Full name",ct_lEmail:"Email",ct_lMsg:"Your message",
-ct_phName:"Your full name",ct_phEmail:"you@example.com",ct_phMsg:"How can we help?",
+ct_send:"Mesajı gönder",ct_sending:"Gönderiliyor…",ct_errName:"Lütfen adınızı yazın.",ct_errEmail:"Geçerli bir e-posta adresi yazın.",ct_errMsg:"Mesajınız en az 10 karakter olmalı.",ct_errOk:"Devam etmek için onay vermelisiniz.",
+ct_failMsg:"Gönderilemedi. Lütfen biraz sonra tekrar deneyin ya da e-posta ile yazın.",ct_wait:"Çok hızlı gönderiyorsunuz, biraz bekleyin.",
+ct_doneH:"Mesajınız ulaştı.",ct_doneP:"Teşekkürler. Mesajınızı okuyup genelde 1–2 gün içinde e-posta ile dönüş yapıyorum.",ct_again:"Yeni mesaj yaz",
+ct_nextH:"Peki, sonra ne oluyor?",ct_nextP:"Net adımlar. Gereksiz karmaşa olmadan.",ct_n1h:"Önce sizi dinliyorum",ct_n1:"İhtiyacınızı anlamak için mesajınızı inceliyor, gerekirse birkaç soru soruyorum.",
+ct_n2h:"Birlikte netleştiriyoruz",ct_n2:"Yapılacakları, kapsamı ve en uygun başlangıç noktasını konuşuyoruz.",ct_n3h:"Yol haritasını çıkarıyoruz",ct_n3:"İlerlemeye karar verirsek süreyi, ücreti ve teslim adımlarını belirliyoruz.",
+ct_relTitle:"İlgili sayfalar",ct_relPrivacy:"Gizlilik Politikası",ct_relKvkk:"KVKK Aydınlatma Metni",ct_relTerms:"Kullanım Şartları"},
+en:{ct_back:"← Back to home",ct_pill:"It starts with a hello.",ct_h:"Good ideas <em>grow together.</em>",
+ct_lead:"Have an idea, a process that slows you down, or just a question? Tell me, and we'll find where to start together.",
+ct_note:"You don't need a technical document. Asking <b>“Could this task be easier?”</b> is enough.",
+ct_kMail:"If you'd rather write directly",ct_copy:"Copy email",ct_copied:"Copied",ct_bnT:"Start on Bionluk",ct_bnS:"For those who want payment and delivery protected.",
+ct_direct:"No layers in between.<br>Talk straight to the developer.",ct_fH:"Tell me a little about your project.",ct_fSub:"A few lines are enough for a small start.",
+ct_topic:"What shall we talk about?",ct_t1:"Custom software",ct_t2:"Website",ct_t3:"Mobile app",ct_t4:"I have an idea",
+ct_lName:"Your name",ct_lEmail:"Your email",ct_lMsg:"Tell me what's on your mind",ct_phName:"What should I call you?",ct_phEmail:"you@example.com",ct_phMsg:"What would you like to do? What is slowing you down most right now?",
+ct_hint:"At least 10 characters. We'll go into detail later.",
 ct_consent:'I have read the <a href="/kvkk/" target="_blank" rel="noopener">KVKK Disclosure</a> and agree to my details being processed to reply to me.',
-ct_send:"Send",ct_sending:"Sending…",ct_back:"Home",ct_relTitle:"Related pages",ct_relPrivacy:"Privacy Policy",ct_relKvkk:"KVKK Disclosure",ct_relTerms:"Terms of Use",
-ct_errName:"Please enter your name.",ct_errEmail:"Enter a valid email address.",ct_errMsg:"Your message must be at least 10 characters.",ct_errOk:"You must agree to continue.",
-ct_failMsg:"Could not send. Please try again later or email us.",ct_wait:"You are sending too fast. Please wait a moment.",
-ct_ownerTitle:"Recipient",ct_senderTitle:"Sender",ct_greet:"Hi! Fill in the form and your message comes straight to us.",ct_flySending:"Sending your message…",
-ct_flyDone:"Your message has reached FF-App Labs. We’ll reply as soon as we can.",ct_flyClose:"Done",ct_pvName:"Your full name",ct_pvMail:"your email address",ct_pvMsg:"Your message will appear here.",ct_pvTime:"Sent",
-ct_role:"FF-App Labs team",ct_reply:"Usually replies within 1–2 days"}};
+ct_send:"Send message",ct_sending:"Sending…",ct_errName:"Please enter your name.",ct_errEmail:"Enter a valid email address.",ct_errMsg:"Your message must be at least 10 characters.",ct_errOk:"You must agree to continue.",
+ct_failMsg:"Could not send. Please try again later or write by email.",ct_wait:"You are sending too fast. Please wait a moment.",
+ct_doneH:"Your message arrived.",ct_doneP:"Thank you. I read every message and usually reply by email within 1–2 days.",ct_again:"Write a new message",
+ct_nextH:"So, what happens next?",ct_nextP:"Clear steps. No needless complexity.",ct_n1h:"I listen first",ct_n1:"I read your message to understand what you need and ask a few questions if necessary.",
+ct_n2h:"We make it clear together",ct_n2:"We talk through what needs doing, the scope and the best place to start.",ct_n3h:"We map the way",ct_n3:"If we decide to go ahead, we set the timing, price and delivery steps.",
+ct_relTitle:"Related pages",ct_relPrivacy:"Privacy Policy",ct_relKvkk:"KVKK Disclosure",ct_relTerms:"Terms of Use"}};
 FFB.extend(D);
-var $=function(i){return document.getElementById(i);},T=function(k){return FFB.t(k);},L=function(){return FFB.lang();};
-var ICONS={instagram:"M12 2.2c3.2 0 3.6 0 4.8.1 3.2.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 3.9 4 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2zM12 7a5 5 0 100 10 5 5 0 000-10zm0 8.2a3.2 3.2 0 110-6.4 3.2 3.2 0 010 6.4zm5.2-9.4a1.2 1.2 0 100 2.4 1.2 1.2 0 000-2.4z",tiktok:"M16.6 5.8A4.3 4.3 0 0115.5 3h-3.1v12.4a2.6 2.6 0 11-1.9-2.5V9.7a5.8 5.8 0 105 5.7V9a7.4 7.4 0 004.3 1.4V7.3a4.3 4.3 0 01-3.2-1.5z",x:"M18.2 2.3h3.3l-7.2 8.3 8.5 11.2h-6.7l-5.2-6.8-6 6.8H1.6l7.7-8.8L1.2 2.3H8l4.7 6.2zm-1.2 17.5h1.8L7 4.2H5.1z",facebook:"M22 12a10 10 0 10-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7A10 10 0 0022 12z"};
-var NAMES={instagram:"Instagram",tiktok:"TikTok",x:"X",facebook:"Facebook"};
-function brand(){FFB.getBrand().then(function(b){
- var m=$("ctMail");if(b.email){m.textContent=b.email;m.href="mailto:"+b.email;}
- var box=$("ctSocial");box.innerHTML="";var so=b.social||{};
- Object.keys(ICONS).forEach(function(k){if(!so[k])return;var a=document.createElement("a");a.href=so[k];a.target="_blank";a.rel="noopener me";a.setAttribute("aria-label",NAMES[k]);a.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+ICONS[k]+'"/></svg>';box.appendChild(a);});});}
-function initials(n){var w=n.trim().split(/\s+/).filter(Boolean);if(!w.length)return "";return ((w[0][0]||"")+(w.length>1?w[w.length-1][0]:"")).toLocaleUpperCase(L()==="en"?"en":"tr");}
-var lastIni="",lastMode="";
-function setT(id,v,ph){var e=$(id);e.textContent=v||ph;e.classList.toggle("is-empty",!v);}
-function preview(){
- var name=$("fName").value.trim(),mail=$("fEmail").value.trim(),msg=$("fMsg").value.trim(),sender=!!(name||mail||msg),mode=sender?"s":"o",box=$("ctIni"),img=$("ctAvImg");
- $("ctPrevTitle").textContent=T(sender?"ct_senderTitle":"ct_ownerTitle");
- if(sender){setT("ctPvName",name,T("ct_pvName"));setT("ctPvMail",mail,T("ct_pvMail"));setT("ctPvMsg",msg,T("ct_pvMsg"));$("ctPvTime").textContent=T("ct_pvTime")+" "+new Date().toLocaleTimeString(L()==="en"?"en-GB":"tr-TR",{hour:"2-digit",minute:"2-digit"});}
- else{setT("ctPvName","FF-App Labs","");setT("ctPvMail",T("ct_role"),"");setT("ctPvMsg",T("ct_greet"),"");$("ctPvTime").textContent=T("ct_reply");}
- var ini=sender?initials(name):"";box.hidden=!ini;box.textContent=ini;img.style.opacity=sender&&!ini?".3":"";
- if((ini&&ini!==lastIni)||mode!==lastMode){var el=ini?box:img;el.classList.remove("pop");void el.offsetWidth;el.classList.add("pop");
-  if(mode!==lastMode)document.querySelectorAll(".ct-name,.ct-role,.ct-chip,.ct-bubble").forEach(function(n){n.classList.remove("ct-swap");void n.offsetWidth;n.classList.add("ct-swap");});}
- lastIni=ini;lastMode=mode;$("ctReply").textContent=sender?T("ct_reply"):"";}
-function refresh(){preview();var b=$("ctSend");if(!b.disabled)b.firstElementChild.textContent=T("ct_send");$("ctBack").setAttribute("aria-label",T("ct_back"));if(document.querySelector(".ct-field.is-bad, #eOk:not(:empty)"))validate(true);}
-function setErr(f,id,m){var p=$(id);p.textContent=m||"";if(f){f.closest(".ct-field").classList.toggle("is-bad",!!m);f.setAttribute("aria-invalid",m?"true":"false");}}
+var $=function(i){return document.getElementById(i);},T=function(k){return FFB.t(k);};
+var TOPICS={yazilim:"Özel yazılım",web:"Web sitesi",mobil:"Mobil uygulama",fikir:"Fikir"};
+var DEMO=/[?&]demo=1\b/.test(location.search);
+try{var q=new URLSearchParams(location.search).get("konu");var r=q&&document.querySelector('input[name=topic][value="'+q.replace(/[^a-z]/g,"")+'"]');if(r)r.checked=true;}catch(x){}
+function tag(){var c=document.querySelector("input[name=topic]:checked");if(c)return TOPICS[c.value]||"";try{return new URLSearchParams(location.search).get("konu")==="is"?"İş":"";}catch(x){return "";}}
+function setErr(id,f,m){$(id).textContent=m||"";if(f){f.setAttribute("aria-invalid",m?"true":"false");var w=f.closest(".ct2-field");if(w)w.classList.toggle("is-bad",!!m);}}
 function validate(silent){
- var name=$("fName").value.trim(),email=$("fEmail").value.trim(),msg=$("fMsg").value.trim();
- var eN=name.length<2?T("ct_errName"):"",eE=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)?"":T("ct_errEmail"),eM=msg.length<10?T("ct_errMsg"):"",eO=$("fOk").checked?"":T("ct_errOk");
- setErr($("fName"),"eName",eN);setErr($("fEmail"),"eEmail",eE);setErr($("fMsg"),"eMsg",eM);$("eOk").textContent=eO;$("fOk").setAttribute("aria-invalid",eO?"true":"false");
+ var n=$("fName").value.trim(),e=$("fEmail").value.trim(),m=$("fMsg").value.trim();
+ var eN=n.length<2?T("ct_errName"):"",eE=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e)?"":T("ct_errEmail"),eM=m.length<10?T("ct_errMsg"):"",eO=$("fOk").checked?"":T("ct_errOk");
+ setErr("eName",$("fName"),eN);setErr("eEmail",$("fEmail"),eE);setErr("eMsg",$("fMsg"),eM);setErr("eOk",$("fOk"),eO);
  if(!silent){var f=[["fName",eN],["fEmail",eE],["fMsg",eM],["fOk",eO]].filter(function(x){return x[1];})[0];if(f)$(f[0]).focus();}
  return !(eN||eE||eM||eO);}
-function status(cls,text){var s=$("ctStatus");s.className="ct-status "+(cls||"");[].slice.call(s.childNodes).forEach(function(n){if(n.nodeType===3)n.remove();});if(text)s.appendChild(document.createTextNode(text));}
-["fName","fEmail","fMsg"].forEach(function(id){$(id).addEventListener("input",preview);$(id).addEventListener("input",function(){if($(id).closest(".ct-field").classList.contains("is-bad"))validate(true);});});
-$("fMsg").addEventListener("input",function(){$("ctCount").textContent=$("fMsg").value.length+"/1000";});
+function status(cls,t){var s=$("ctStatus");s.className="ct2-status "+(cls||"");s.textContent=t||"";}
+["fName","fEmail","fMsg"].forEach(function(id){$(id).addEventListener("input",function(){if($(id).getAttribute("aria-invalid")==="true")validate(true);});});
 $("fOk").addEventListener("change",function(){if($("eOk").textContent)validate(true);});
-var reduce=function(){return window.matchMedia("(prefers-reduced-motion: reduce)").matches;},wait=function(ms){return new Promise(function(r){setTimeout(r,ms);});};
-var TAG="";try{var kq=new URLSearchParams(location.search).get("konu");TAG={is:"İş"}[kq]||"";}catch(x){}
-var DEMO=/[?&]demo=1\b/.test(location.search);
-function openFly(name,mail){var fly=$("ctFly");$("flyIni").textContent=initials(name)||"?";$("flyFromName").textContent=name;$("flyFromMail").textContent=mail;$("flyToRole").textContent=T("ct_role");$("ctFlyText").textContent=T("ct_flySending");$("ctFlyDone").hidden=true;$("ctFlyDone").textContent=T("ct_flyClose");fly.classList.remove("go","arrived");fly.hidden=false;void fly.offsetWidth;var tr=$("ctTrack");tr.style.setProperty("--d",Math.max(0,tr.clientWidth-46)+"px");fly.classList.add("go");fly.scrollIntoView({block:"center",behavior:reduce()?"auto":"smooth"});}
-function closeFly(reset){$("ctFly").hidden=true;$("ctFly").classList.remove("go","arrived");if(reset){$("ctForm").reset();$("ctCount").textContent="0/1000";preview();$("fName").focus();}}
-$("ctFlyDone").addEventListener("click",function(){closeFly(true);});
-$("ctFly").addEventListener("keydown",function(e){if(e.key==="Escape"&&!$("ctFlyDone").hidden)closeFly(true);});
+$("fMsg").addEventListener("input",function(){$("ctCount").textContent=$("fMsg").value.length+"/950";});
+$("ctCopy").addEventListener("click",function(){var b=this,m=$("ctMail").textContent.trim();var done=function(){b.classList.add("ok");b.setAttribute("aria-label",T("ct_copied"));setTimeout(function(){b.classList.remove("ok");b.setAttribute("aria-label",T("ct_copy"));},1600);};
+ if(navigator.clipboard)navigator.clipboard.writeText(m).then(done,function(){});});
 $("ctForm").addEventListener("submit",function(e){
  e.preventDefault();status("","");if($("fHp").value)return;if(!validate(false))return;
  try{if(Date.now()-Number(localStorage.getItem("ffb_last")||0)<30000&&!DEMO){status("bad",T("ct_wait"));return;}}catch(x){}
- var name=$("fName").value.trim(),mail=$("fEmail").value.trim(),msg=$("fMsg").value.trim(),btn=$("ctSend");
- btn.disabled=true;btn.firstElementChild.textContent=T("ct_sending");openFly(name,mail);
- var flight=wait(reduce()?500:1700),p=DEMO?wait(300):FFB.sendMessage(name,mail,msg,TAG);
- p.then(function(){try{localStorage.setItem("ffb_last",String(Date.now()));}catch(x){}return true;},function(){return false;}).then(function(ok){
-  return flight.then(function(){btn.disabled=false;btn.firstElementChild.textContent=T("ct_send");
-   if(!ok){closeFly(false);status("bad",T("ct_failMsg"));return;}
-   $("ctFly").classList.add("arrived");$("ctFlyText").textContent=T("ct_flyDone");$("ctFlyDone").hidden=false;$("ctFlyDone").focus();});});});
-document.addEventListener("ffb:lang",refresh);
-document.addEventListener("DOMContentLoaded",function(){FFB.applyI18n();brand();refresh();});
+ var btn=$("ctSend");btn.disabled=true;btn.textContent=T("ct_sending");
+ var p=DEMO?new Promise(function(r){setTimeout(r,400);}):FFB.sendMessage($("fName").value.trim(),$("fEmail").value.trim(),$("fMsg").value.trim(),tag());
+ p.then(function(){try{localStorage.setItem("ffb_last",String(Date.now()));}catch(x){}
+   $("ctForm").hidden=true;$("ctDone").hidden=false;$("ctDone").focus();},
+  function(){status("bad",T("ct_failMsg"));}).then(function(){btn.disabled=false;btn.textContent=T("ct_send");});});
+$("ctAgain").addEventListener("click",function(){$("ctForm").reset();$("ctCount").textContent="0/950";$("ctDone").hidden=true;$("ctForm").hidden=false;$("fName").focus();});
+document.addEventListener("ffb:lang",function(){if($("ctSend").disabled)$("ctSend").textContent=T("ct_sending");if(document.querySelector(".ct2-err:not(:empty)"))validate(true);});
+document.addEventListener("DOMContentLoaded",function(){FFB.applyI18n();FFB.reveal();FFB.getBrand().then(function(b){if(b&&b.email){$("ctMail").textContent=b.email;$("ctMail").href="mailto:"+b.email;}});});
 })();

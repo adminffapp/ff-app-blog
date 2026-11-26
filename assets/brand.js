@@ -271,3 +271,7 @@
     getBrand: getBrand, getProjects: getProjects, getPosts: getPosts, getPost: getPost, getViews: getViews, getBanner: getBanner, popular: popular, hit: hit, hubUsage: hubUsage, reveal: reveal, mountForm: mountForm, sendMessage: sendMessage, HUB: HUB };
   document.addEventListener("DOMContentLoaded", function () { wireChrome(); });
 })();
+/* footer: "Laboratuvardan notlar" listesi (daha fazla / daha az) */
+(function(){if(!window.FFB)return;FFB.extend({tr:{fNotes:"Laboratuvardan notlar",fdNotes:"Yazılım, web siteleri ve araçlar üzerine sade notlar.",fMore:"Daha fazla",fLess:"Daha az",fAllPosts:"Tüm yazılar →"},en:{fNotes:"Notes from the lab",fdNotes:"Plain notes on software, websites and tools.",fMore:"Show more",fLess:"Show less",fAllPosts:"All posts →"}});
+document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest(".fn-more");if(!b)return;var l=document.getElementById(b.getAttribute("aria-controls"));if(!l)return;var o=b.getAttribute("aria-expanded")!=="true";b.setAttribute("aria-expanded",String(o));l.classList.toggle("open",o);var t=b.querySelector("[data-fn-label]");if(t)t.textContent=FFB.t(o?"fLess":"fMore");});
+document.addEventListener("ffb:lang",function(){document.querySelectorAll(".fn-more").forEach(function(b){var t=b.querySelector("[data-fn-label]");if(t)t.textContent=FFB.t(b.getAttribute("aria-expanded")==="true"?"fLess":"fMore");});});})();
